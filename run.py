@@ -1,4 +1,3 @@
-# list that holds the character that represents the board in the terminal
 from random import randint
 
 class BoardMaker:
@@ -18,7 +17,7 @@ class BoardMaker:
         append it until the self.ship_locations list contains 
         5 unique coordinates
         """
-        while len(self.ship_locations) < 5:
+        while len(self.ship_locations) < 4:
             random_coordinate = (randint(0,4), randint(0,4))
             if random_coordinate not in self.ship_locations:
                 self.ship_locations.append(random_coordinate)
@@ -28,12 +27,21 @@ class BoardMaker:
         """
         Method that prints the board to the console.
         """
-        print(f"{self.owner}'s board: \n")
+        print(f"\n{self.owner}'s board: \n")
         print("   A B C D E")
         row_count = 1
         for row in self.board:
-             print(f"{row_count}  " + " ".join(row))
+             print(f"{row_count}  " + " ".join(row),) 
              row_count += 1
+        print("\n\n")
+
+    def reveal_ships(self):
+        """
+        method that update ship_location list so that 
+        remaining ships can be printed
+        """
+        for ship in self.ship_locations:
+            self.board[ship[0]][ship[1]] = "@"    
 
 class Player(BoardMaker):
     """
@@ -81,14 +89,19 @@ class ArtificialPlayer(BoardMaker):
         self.guesses.append(guess)
         return guess
 
-
+#create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
-player.place_ships()
-computer.place_ships()
-player.guess()
 
-print(player.ship_locations)
+#place ships on board.
+computer.place_ships()
+player.place_ships()
+
+#visual representation of the ships
+player.reveal_ships()
+
+#load gameplay
+
 #player_board = BoardMaker("Player", "human")
 #computer_board = BoardMaker("Computer", "computer")
 
