@@ -35,8 +35,12 @@ class BoardMaker:
              print(f"{row_count}  " + " ".join(row))
              row_count += 1
 
-
 class Player(BoardMaker):
+    """
+    Subclass of the BoardMaker that represents a human player.
+    Player has access to the board made in BoardMaker, a guess method and
+    that collects user input and stores old guesses.
+    """
     def __init__(self, owner, type):
         super().__init__(owner, type)
     
@@ -63,14 +67,25 @@ class Player(BoardMaker):
         return guess
 
 
-class artificial_player(BoardMaker):
+class ArtificialPlayer(BoardMaker):
+    """
+    Subclass of the BoardMaker that represents a artificial player.
+    Artificial player has access to the board, makes random guesses and stores
+    previous guesses.
+    """
     def __init__(self, owner, type):
         super().__init__(owner, type)
 
+    def random_guess(self):
+        guess = (randint(0,4), randint(0,4))
+        self.guesses.append(guess)
+        return guess
 
 
 player = Player("Anton", "human")
+computer = ArtificialPlayer("Computer", "computer")
 player.place_ships()
+computer.place_ships()
 player.guess()
 
 print(player.ship_locations)
