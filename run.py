@@ -36,14 +36,48 @@ class BoardMaker:
              row_count += 1
 
 
+class Player(BoardMaker):
+    def __init__(self, owner, type):
+        super().__init__(owner, type)
+    
+    def guess(self):
+        """
+        Method that collects a human guess, appends it to 
+        self.guesses and returns the current guess as a tuple.
+        """
+        numbers = "12345"
+        letters = "abcde"
+
+        row = input("select a row (1-5)")
+        while row == "" and row not in numbers:
+            print("cmon man, you missed the ocean, 1-5 please!")
+            row = input("select a row (1-5)")
+
+        col = input("select a column (A-E)").lower()
+        while col == "" and col not in letters:
+            print("cmon man, you missed the ocean, A-E please!")
+            col = input("select a column (A-E)").lower()
+        
+        guess = (row, col)
+        self.guesses.append(guess)
+        return guess
+
+
+class artificial_player(BoardMaker):
+    def __init__(self, owner, type):
+        super().__init__(owner, type)
 
 
 
+player = Player("Anton", "human")
+player.place_ships()
+player.guess()
 
-player_board = BoardMaker("Player", "human")
-computer_board = BoardMaker("Computer", "computer")
+print(player.ship_locations)
+#player_board = BoardMaker("Player", "human")
+#computer_board = BoardMaker("Computer", "computer")
 
-computer_board.print_board()
-player_board.place_ships()
-computer_board.place_ships()
-print(player_board.ship_locations)
+#computer_board.print_board()
+#player_board.place_ships()
+#computer_board.place_ships()
+#print(player_board.ship_locations)
