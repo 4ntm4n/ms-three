@@ -89,6 +89,28 @@ class ArtificialPlayer(BoardMaker):
         self.guesses.append(guess)
         return guess
 
+
+def check_for_hit(player, opponent):
+    pg = player.guess()
+
+    if pg in opponent.locations:
+        pass
+
+
+def play(player1, player2):
+    """
+    function that starts the game of battleship between 2 players.
+    """
+    player.print_board()
+    computer.print_board()
+    while player1.ship_locations != [] or player2.ship_locations != []:
+        pass
+
+        #check_for_hits()
+
+
+
+
 #create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
@@ -101,7 +123,7 @@ player.place_ships()
 player.reveal_ships()
 
 #load gameplay
-
+play(player, computer)
 #player_board = BoardMaker("Player", "human")
 #computer_board = BoardMaker("Computer", "computer")
 
