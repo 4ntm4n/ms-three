@@ -57,19 +57,19 @@ class Player(BoardMaker):
         Method that collects a human guess, appends it to 
         self.guesses and returns the current guess as a tuple.
         """
-        numbers = "12345"
         letters = "abcde"
+        numbers = "12345"
+
+        col = input("select a column [A-E]  ").lower()
+        while col not in letters:
+            print("you need to type a letter from A-E")
+            col = input("select a column [A-E]  ").lower()
 
         row = input("select a row [1-5]  ")
         while row not in numbers:
             print("\ncmon man, you missed the ocean, 1-5 please!")
             row = input("select a row (1-5)  ")
 
-        col = input("select a column [A-E]  ").lower()
-        while col not in letters:
-            print("you need to type a letter from A-E")
-            col = input("select a column [A-E]  ").lower()
-        
         guess = (int(row) -1, letters.index(col))
         return guess
     
@@ -120,8 +120,9 @@ def check_for_hit(player, opponent):
     if guess in opponent.ship_locations:
         opponent.hit(guess)
         player.update_guesses(guess)
-        print(f"\n\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}")
         opponent.ship_locations.remove(guess)
+        print(f"\n\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}")
+        
 
     else:
         opponent.miss(guess)
@@ -130,30 +131,36 @@ def check_for_hit(player, opponent):
 
 def play(player1, player2):
     """
-    function that starts the game of battleship between 2 players.
+    function that starts the game of battleship be
+    tween 2 players.
     """
 
     turns = 10
 
     while turns > 0:
-        computer.print_board()
+        input(f"{player2.name} is taking it's shot... \n(press any key to continue)")
         check_for_hit(player2, player1)
-        
         player.print_board()
+        
+        input("your turn.. lets choose a coordinate in the sea...")
+        computer.print_board()
         check_for_hit(player1, player2)
-
+        computer.print_board()
         
-        
 
-        if len(player1.ship_locations) <= 1:
+        if len(player1.ship_locations) == 0:
             print("\n\nyou lost, so sad...")
+            break
         elif turns == 0:
             if len(player1.ship_locations) > len(player2.ship_locations):
                 print(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                break
             else:
-                print(f"\n\nGAME OVER! \n {player2} sank the most ships")    
-        elif len(player2.ship_locations) <= 1:
+                print(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                break   
+        elif len(player2.ship_locations) == 0:
             print("\n\nyou won...")
+            break
 #create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
