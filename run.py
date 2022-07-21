@@ -59,14 +59,15 @@ class Player(BoardMaker):
         """
         letters = "abcde"
         numbers = "12345"
+        false_input = "'''"
 
         col = input("select a column [A-E]  ").lower()
-        while col not in letters:
+        while col not in letters or col in false_input:
             print("you need to type a letter from A-E")
             col = input("select a column [A-E]  ").lower()
 
         row = input("select a row [1-5]  ")
-        while row not in numbers:
+        while row not in numbers or row in false_input:
             print("\ncmon man, you missed the ocean, 1-5 please!")
             row = input("select a row (1-5)  ")
 
@@ -114,7 +115,8 @@ def check_for_hit(player, opponent):
     guess = player.guess()
     print(guess)
     if guess in player.guesses:
-        print("\n\nyou have already tried that")
+        if player.type == "human":
+            print("\n\nyou have already tried that")
         check_for_hit(player, opponent)
 
     if guess in opponent.ship_locations:
@@ -138,28 +140,29 @@ def play(player1, player2):
     turns = 10
 
     while turns > 0:
+        player.print_board()
         input(f"{player2.name} is taking it's shot... \n(press any key to continue)")
         check_for_hit(player2, player1)
         player.print_board()
-        
-        input("your turn.. lets choose a coordinate in the sea...")
+
         computer.print_board()
+        input("your turn.. lets choose a coordinate in the sea...")
         check_for_hit(player1, player2)
         computer.print_board()
         
 
         if len(player1.ship_locations) == 0:
-            print("\n\nyou lost, so sad...")
+            input("\n\nYou just lost the worlds slowest coinflip. Thanks for playing!")
             break
         elif turns == 0:
             if len(player1.ship_locations) > len(player2.ship_locations):
-                print(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                input(f"\n\nGAME OVER! \n {player2} sank the most ships")
                 break
             else:
-                print(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                input(f"\n\nGAME OVER! \n {player2} sank the most ships")
                 break   
         elif len(player2.ship_locations) == 0:
-            print("\n\nyou won...")
+            print("\n\nYou just won the worlds slowest coinflip. congratulations!")
             break
 #create instance of players.
 player = Player("Anton", "human")
