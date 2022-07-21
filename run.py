@@ -60,17 +60,17 @@ class Player(BoardMaker):
         numbers = "12345"
         letters = "abcde"
 
-        row = input("select a row (1-5)")
+        row = input("select a row [1-5]  ")
         while row not in numbers:
-            print("cmon man, you missed the ocean, 1-5 please!")
-            row = input("select a row (1-5)")
+            print("\ncmon man, you missed the ocean, 1-5 please!")
+            row = input("select a row (1-5)  ")
 
-        col = input("select a column (A-E)").lower()
+        col = input("select a column [A-E]  ").lower()
         while col not in letters:
-            print("cmon man, you missed the ocean, A-E please!")
-            col = input("select a column (A-E)").lower()
+            print("you need to type a letter from A-E")
+            col = input("select a column [A-E]  ").lower()
         
-        guess = (int(row), letters.index(col))
+        guess = (int(row) -1, letters.index(col))
         return guess
     
     def update_guesses(self, guess):     
@@ -96,8 +96,8 @@ class ArtificialPlayer(BoardMaker):
         guess = (randint(0,4), randint(0,4))
         return guess
 
-    def update_guesses(self):     
-        self.guesses.append(self.guess)
+    def update_guesses(self, guess):     
+        self.guesses.append(guess)
 
     def miss(self, guess):
         self.board[guess[0]][guess[1]] = "0"
@@ -114,29 +114,46 @@ def check_for_hit(player, opponent):
     guess = player.guess()
     print(guess)
     if guess in player.guesses:
-        print("you have already tried that")
+        print("\n\nyou have already tried that")
         check_for_hit(player, opponent)
 
     if guess in opponent.ship_locations:
         opponent.hit(guess)
         player.update_guesses(guess)
-        print(f"hit! one of {opponent.name}'s ship has sunk.")
+        print(f"\n\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}")
         opponent.ship_locations.remove(guess)
 
     else:
         opponent.miss(guess)
         player.update_guesses(guess)
-        print("miss...") 
+        print(f"\n\n{player.name} missed... so sad.") 
 
 def play(player1, player2):
     """
     function that starts the game of battleship between 2 players.
     """
-    player.print_board()
-    computer.print_board()
-    check_for_hit(player1, player2)
 
+    turns = 10
 
+    while turns > 0:
+        computer.print_board()
+        check_for_hit(player2, player1)
+        
+        player.print_board()
+        check_for_hit(player1, player2)
+
+        
+        
+
+        if len(player1.ship_locations) <= 1:
+            print("\n\nyou lost, so sad...")
+        elif turns == 0:
+            if len(player1.ship_locations) > len(player2.ship_locations):
+                print(f"\n\nGAME OVER! \n {player2} sank the most ships")
+            else:
+                print(f"\n\nGAME OVER! \n {player2} sank the most ships")    
+        elif len(player2.ship_locations) <= 1:
+            print("\n\nyou won...")
 #create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
@@ -148,6 +165,7 @@ player.place_ships()
 
 #visual representation of the ships
 player.reveal_ships()
+computer.reveal_ships()
 #load gameplay
 play(player, computer)
 
