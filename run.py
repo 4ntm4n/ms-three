@@ -59,16 +59,16 @@ class Player(BoardMaker):
         """
         letters = "abcde"
         numbers = "12345"
-        false_input = "'''"
+        false_input = "''"
 
         col = input("select a column [A-E]  ").lower()
         while col not in letters or col in false_input:
-            print("you need to type a letter from A-E")
+            print("\n...a coordinate IN. THE. SEA.(A-E)")
             col = input("select a column [A-E]  ").lower()
 
         row = input("select a row [1-5]  ")
         while row not in numbers or row in false_input:
-            print("\ncmon man, you missed the ocean, 1-5 please!")
+            print("\ncomooon, you missed the ocean, 1-5 please :)")
             row = input("select a row (1-5)  ")
 
         guess = (int(row) -1, letters.index(col))
@@ -124,12 +124,13 @@ def check_for_hit(player, opponent):
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
         print(f"\n\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}")
-        
-
     else:
-        opponent.miss(guess)
-        player.update_guesses(guess)
-        print(f"\n\n{player.name} missed... so sad.") 
+        if opponent.board[guess[0]][guess[1]] == "x":
+            pass
+        else:
+            opponent.miss(guess)
+            player.update_guesses(guess)
+            print(f"\n\n{player.name} missed... so sad.") 
 
 def play(player1, player2):
     """
