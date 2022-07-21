@@ -1,4 +1,5 @@
 from random import randint
+import os
 
 class BoardMaker:
     def __init__(self, name, type):
@@ -138,33 +139,41 @@ def play(player1, player2):
     tween 2 players.
     """
 
-    turns = 10
+    turns = 1
 
-    while turns > 0:
+    while turns <= 10:
+        #player2 playing the game (computer)
+        print(f"Round {turns} out of 10")
+        computer.print_board()
         player.print_board()
         input(f"{player2.name} is taking it's shot... \n(press any key to continue)")
+        os.system("clear")
         check_for_hit(player2, player1)
         player.print_board()
+        computer.print_board()
 
-        computer.print_board()
+        #player 1 playes the game (human)
+        os.system("clear")
+        print(f"Round {turns} out of 10")
         input("your turn.. lets choose a coordinate in the sea...")
-        check_for_hit(player1, player2)
         computer.print_board()
-        
+        check_for_hit(player1, player2)
 
         if len(player1.ship_locations) == 0:
-            input("\n\nYou just lost the worlds slowest coinflip. Thanks for playing!")
+            input("\nYou just lost the worlds slowest coinflip. Thanks for playing!")
             break
         elif turns == 0:
             if len(player1.ship_locations) > len(player2.ship_locations):
-                input(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                input(f"\nGAME OVER! \n {player2.name} sank the most ships")
                 break
             else:
-                input(f"\n\nGAME OVER! \n {player2} sank the most ships")
+                input(f"\nGAME OVER! \n {player1.name} sank the most ships")
                 break   
         elif len(player2.ship_locations) == 0:
-            print("\n\nYou just won the worlds slowest coinflip. congratulations!")
+            print("\nYou just won the worlds slowest coinflip. congratulations!")
             break
+
+        turns += 1
 #create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
@@ -176,7 +185,6 @@ player.place_ships()
 
 #visual representation of the ships
 player.reveal_ships()
-computer.reveal_ships()
 #load gameplay
 play(player, computer)
 
