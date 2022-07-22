@@ -82,8 +82,27 @@ class Player(BoardMaker):
         self.board[guess[0]][guess[1]] = "0"
 
     def hit(self, guess):
-        self.board[guess[0]][guess[1]] = "x"           
+        self.board[guess[0]][guess[1]] = "x"
 
+    def answer(self, question):
+        """
+        a question is a Player method that 
+        returns yes or no to a question asked to it.
+        """
+        if self.type == "human":
+            check = input(f"{question} [Y/N]").lower()
+            try:
+                if check == "y":
+                    return True
+                elif check == "n":
+                    return False
+                else:
+                    print("Invalid input")
+                    return self.answer(question)
+            except Exception:
+                print(f"enter 'y' for yes or 'n' for no. you entered {self.answer}")        
+        else:
+            print("I am not real, you cant ask me questions, I don't care...")
 
 class ArtificialPlayer(BoardMaker):
     """
@@ -107,6 +126,7 @@ class ArtificialPlayer(BoardMaker):
     def hit(self, guess):
         self.board[guess[0]][guess[1]] = "x"    
 
+    
 
 def check_for_hit(player, opponent):
     """
@@ -133,6 +153,8 @@ def check_for_hit(player, opponent):
             opponent.miss(guess)
             player.update_guesses(guess)
             return f"\n{player.name} missed... so sad." 
+
+
 
 
 def play(player1, player2):
@@ -193,10 +215,19 @@ def play(player1, player2):
             break
 
         turns += 1
+
+
+def rules():
+    """
+    Method that prints out the rules to the console.
+    """
+    with open("rules.txt") as rules_file:
+        print(rules_file.read())
+
+
 #create instance of players.
 player = Player("Anton", "human")
 computer = ArtificialPlayer("Computer", "computer")
-
 
 #place ships on board.
 computer.place_ships()
