@@ -225,25 +225,21 @@ def rules():
         print(rules_file.read())
 
 
+print("Welcome to *Battle Ships")
 #create instance of players.
-player = Player("Anton", "human")
-computer = ArtificialPlayer("Computer", "computer")
+player = Player(input("Please enter your name"), "human")
+computer = ArtificialPlayer(input("Please name your opponent."), "computer")
 
 #place ships on board.
 computer.place_ships()
 player.place_ships()
 
+
+if player.answer("would you like to see the rules before you play?"):
+    rules()
 #visual representation of the ships
 player.reveal_ships()
-computer.reveal_ships()
-#load gameplay
+if player.name == "developer1337": # if you name your player this, the opponents ships will be revealed.
+    computer.reveal_ships()
+
 play(player, computer)
-
-
-#player_board = BoardMaker("Player", "human")
-#computer_board = BoardMaker("Computer", "computer")
-
-#computer_board.print_board()
-#player_board.place_ships()
-#computer_board.place_ships()
-#print(player_board.ship_locations)
