@@ -167,15 +167,27 @@ def play(player1, player2):
         player2.print_board()
 
         if len(player1.ship_locations) == 0:
-            input("\nYou just lost the worlds slowest coinflip. Thanks for playing!")
+            player2.reveal_ships() # add @ to the board based on ship location
+            input(f"\nYou just lost against {player2.name}. Thanks for playing!")
             break
-        elif turns == 0:
+        elif turns == 10:
+            os.system("clear")
             if len(player1.ship_locations) > len(player2.ship_locations):
-                input(f"\nGAME OVER! \n {player2.name} sank the most ships")
+                print(f"\nGAME OVER! \n {player2.name} sank the most ships")
+                print(f"{player2.name}'s board looked like this. better luck next time.")
+                #a dd play again question !! ---------------------------------------------------------------
+                player2.print_board()
+                break
+            elif len(player2.ship_locations) < len(player2.ship_locations):
+                print(f"\nGAME OVER! \n {player1.name} sank the most ships")
+                print(f"{player2.name}'s board looked like this. better luck next time.")
+                #add play again question !! -----------------------------------------------------------------
+                player2.print_board()
                 break
             else:
-                input(f"\nGAME OVER! \n {player1.name} sank the most ships")
-                break   
+                input("you guys had equal amount of bad luck.") 
+                player1.print_board()
+                player2.print_board()
         elif len(player2.ship_locations) == 0:
             print("\nYou did it. congratulations.")
             break
@@ -192,6 +204,7 @@ player.place_ships()
 
 #visual representation of the ships
 player.reveal_ships()
+computer.reveal_ships()
 #load gameplay
 play(player, computer)
 
