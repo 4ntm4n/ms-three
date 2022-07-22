@@ -1,0 +1,20 @@
+    /\____/\
+  (--.0--0.--) 
+ (            ) - Here is a fat cat to explain the rules.
+  ** FAT CAT **
+************************
+RULES OF MY BATTLE SHIPS:
+. the goal of the game is to sink all of the opponents ships.
+. The board is 5x5.
+. 4 Ships are placed on each board. 
+. The locations of the ships are placed at random.
+. There are 10 rounds in this game of battle ships.
+. Unsunken ships will be marked with @ on the player's board.
+. Sunken ships will be marked with an X
+. missed strikes are marked with a 0
+
+If both of the boards still contains one or more ships by the end of the 10 
+rounds the game will be over and the player who has the most amout of ships 
+left will be printed to the console, but you will not be able to append your name to the list of lucky people, and be forever an imortal part of this games history, unless you sink all your opponents ships.. 
+
+The odds of winning is 50%, it is basically a very slow coinflip. Have... fun.
