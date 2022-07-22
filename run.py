@@ -124,6 +124,7 @@ def check_for_hit(player, opponent):
         opponent.hit(guess)
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
+        os.system("clear")
         return f"\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}"
     else:
         if opponent.board[guess[0]][guess[1]] == "x":
@@ -141,16 +142,29 @@ def play(player1, player2):
     """
     turns = 1
     while turns <= 10:
-        os.system("clear")
-        print(f"playing round number {turns}")
+        os.system("clear") #  <-- make sure terminal is clear before each round
+        print(f"{player2.name} playing round number {turns}")
         player1.print_board()
         player2.print_board()
 
-        input(f"{player2} will start. Press any key when you are ready")
+        input(f"{player2.name} will start. Press any key when you are ready ")
         os.system("clear")
-        #player2 playing the game (computer)
+        
+        #player2 playing the round (computer)
+        print(check_for_hit(player2, player1))
+        player1.print_board()
+        player2.print_board()
 
-        #player1 playing the game (human)
+        input("You are up next. Press any key to make your guess ")
+        os.system("clear")
+        print(f"{player1.name} playing round number {turns}")
+        #player1 playing the round (human)
+        player1.print_board()
+        player2.print_board()
+        
+        print(check_for_hit(player1, player2))
+        player1.print_board()
+        player2.print_board()
 
         if len(player1.ship_locations) == 0:
             input("\nYou just lost the worlds slowest coinflip. Thanks for playing!")
@@ -163,7 +177,7 @@ def play(player1, player2):
                 input(f"\nGAME OVER! \n {player1.name} sank the most ships")
                 break   
         elif len(player2.ship_locations) == 0:
-            print("\nYou just won the worlds slowest coinflip. congratulations!")
+            print("\nYou did it. congratulations.")
             break
 
         turns += 1
