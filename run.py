@@ -163,6 +163,7 @@ def play(player1, player2):
     tween 2 players.
     """
     turns = 1
+    input(f"Hey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\nPress any key to reveal the boards.")
     while turns <= 10:
         os.system("clear") #  <-- make sure terminal is clear before each round
         print(f"{player2.name} playing round number {turns}")
@@ -227,8 +228,8 @@ def rules():
 
 print("Welcome to *Battle Ships")
 #create instance of players.
-player = Player(input("Please enter your name"), "human")
-computer = ArtificialPlayer(input("Please name your opponent."), "computer")
+player = Player(input("Please enter your name: "), "human")
+computer = ArtificialPlayer(input("Please name your opponent: "), "computer")
 
 #place ships on board.
 computer.place_ships()
@@ -236,6 +237,7 @@ player.place_ships()
 
 
 if player.answer("would you like to see the rules before you play?"):
+    os.system("clear")
     rules()
 #visual representation of the ships
 player.reveal_ships()
