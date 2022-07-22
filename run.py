@@ -117,47 +117,40 @@ def check_for_hit(player, opponent):
     print(guess)
     if guess in player.guesses:
         if player.type == "human":
-            print("\n\nyou have already tried that")
-        check_for_hit(player, opponent)
+            print("\nyou have already tried that")
+        return check_for_hit(player, opponent)
 
     if guess in opponent.ship_locations:
         opponent.hit(guess)
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
-        print(f"\n\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}")
+        return f"\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}"
     else:
         if opponent.board[guess[0]][guess[1]] == "x":
             pass
         else:
             opponent.miss(guess)
             player.update_guesses(guess)
-            print(f"\n\n{player.name} missed... so sad.") 
+            return f"\n{player.name} missed... so sad." 
+
 
 def play(player1, player2):
     """
     function that starts the game of battleship be
     tween 2 players.
     """
-
     turns = 1
-
     while turns <= 10:
-        #player2 playing the game (computer)
-        print(f"Round {turns} out of 10")
-        computer.print_board()
-        player.print_board()
-        input(f"{player2.name} is taking it's shot... \n(press any key to continue)")
         os.system("clear")
-        check_for_hit(player2, player1)
-        player.print_board()
-        computer.print_board()
+        print(f"playing round number {turns}")
+        player1.print_board()
+        player2.print_board()
 
-        #player 1 playes the game (human)
+        input(f"{player2} will start. Press any key when you are ready")
         os.system("clear")
-        print(f"Round {turns} out of 10")
-        input("your turn.. lets choose a coordinate in the sea...")
-        computer.print_board()
-        check_for_hit(player1, player2)
+        #player2 playing the game (computer)
+
+        #player1 playing the game (human)
 
         if len(player1.ship_locations) == 0:
             input("\nYou just lost the worlds slowest coinflip. Thanks for playing!")
