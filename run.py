@@ -1,6 +1,4 @@
 from random import randint
-import os
-
 
 class BoardMaker:
     def __init__(self, name, type):
@@ -66,15 +64,15 @@ class Player(BoardMaker):
         numbers = "12345"
         false_input = "''"
 
-        col = input("select a column [A-E]: \n").lower()
+        col = input("select a column [A-E]: ").lower()
         while col not in letters or col in false_input:
             print("\n...a column on the board would be preferable. [A-E]")
-            col = input("select a column [A-E]: \n").lower()
+            col = input("select a column [A-E]: ").lower()
 
-        row = input("select a row [1-5]: \n")
+        row = input("select a row [1-5]: ")
         while row not in numbers or row in false_input:
             print("\n the ships are hiding within row 1-5... try again.")
-            row = input("select a row [1-5]: \n")
+            row = input("select a row [1-5]: ")
 
         guess = (int(row) - 1, letters.index(col))
         return guess
@@ -94,7 +92,7 @@ class Player(BoardMaker):
         returns yes or no to a question asked to it.
         """
         if self.type == "human":
-            check = input(f"{question} [Y/N]\n").lower()
+            check = input(f"{question} [Y/N]").lower()
             try:
                 if check == "y":
                     return True
@@ -104,8 +102,7 @@ class Player(BoardMaker):
                     print("Invalid input")
                     return self.answer(question)
             except Exception:
-                print(
-                    f"enter 'y' for yes or 'n' for no. you entered {self.answer}")
+                print(f"enter 'y' for yes or 'n' for no. you entered {self.answer}")
         else:
             print("I am not real, you cant ask me questions, I don't care...")
 
@@ -138,8 +135,7 @@ def check_for_hit(player, opponent):
         opponent.hit(guess)
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
-        os.system("clear")
-        os.system("clear")
+        print("\n" * 24)
         if len(opponent.ship_locations) == 0:
             return f"Hit! That was {opponent.name}'s last ship. Haha! {opponent.name} is looser! "
         else:
@@ -150,8 +146,7 @@ def check_for_hit(player, opponent):
         else:
             opponent.miss(guess)
             player.update_guesses(guess)
-            os.system("clear")
-            os.system("clear")
+            print("\n" * 24)
             return f"\n{player.name} missed..."
 
 
@@ -162,26 +157,24 @@ def play(player1, player2):
     """
     turns = 1
     input(
-        f"\nHey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\n\nPress any key to reveal the boards.\n"
+        f"\nHey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\n\nPress any key to reveal the boards."
     )
     while turns <= 10:
-        os.system("clear")  
-        os.system("clear")# <-- make sure terminal is clear before each round        
+        print("\n" * 24)  #  <-- make sure terminal is clear before each round
         print(f"{player2.name} playing round number {turns}")
         player1.print_board()
         player2.print_board()
 
-        input(f"{player2.name} will start. Press any key when you are ready \n")
-        os.system("clear")
-        os.system("clear")
+        input(f"{player2.name} will start. Press any key when you are ready ")
+        print("\n" * 24)
+
         # player2 playing the round (computer)
         print(check_for_hit(player2, player1))
         player1.print_board()
         player2.print_board()
 
-        input("You are up next. Press any key to make your guess \n")
-        os.system("clear")
-        os.system("clear")
+        input("You are up next. Press any key to make your guess ")
+        print("\n" * 24)
         print(f"{player1.name} playing round number {turns}")
         # player1 playing the round (human)
         player1.print_board()
@@ -190,15 +183,14 @@ def play(player1, player2):
         print(check_for_hit(player1, player2))
         player1.print_board()
         player2.print_board()
-        input("press any key to play the next round\n")
+        input("press any key to play the next round")
 
         if len(player1.ship_locations) == 0:
             player2.reveal_ships()  # add @ to the board based on ship location
-            input(
-                f"\nYou just lost against {player2.name}. Thanks for playing!\n")
+            input(f"\nYou just lost against {player2.name}. Thanks for playing!")
             break
         elif turns == 10:
-            os.system("clear")
+            print("\n" * 24)
             if len(player1.ship_locations) > len(player2.ship_locations):
                 print(f"\nGAME OVER! \n {player2.name} sank the most ships")
                 print(
@@ -214,19 +206,18 @@ def play(player1, player2):
                 player2.print_board()
                 break
             else:
-                input("you guys had equal amount of bad luck.\n")
+                input("you guys had equal amount of bad luck.")
                 player1.print_board()
                 player2.print_board()
         elif len(player2.ship_locations) == 0:
-            os.system("clear")
+            print("\n" * 24)
             print(
                 f"\nYou did it! you wiped the floor with {player2.name}. Congratulations!"
             )
             if player1.answer(
                 "\nWould you like to forever append your name to list of lucky people?"
             ):
-                feeling = input(
-                    "\nCool, but first; Tell me how you feel right now: \n")
+                feeling = input("\nCool, but first; Tell me how you feel right now: ")
 
                 with open("lucky_folks.txt", "a") as luckers_file:
                     luckers_file.write(f"\n{player1.name}, {feeling},")
@@ -241,10 +232,10 @@ def play(player1, player2):
         turns += 1
 
     if player1.answer("\nWould you like a rematch?"):
-        os.system("clear")
+        print("\n" * 24)
         play(player1, player2)
     else:
-        os.system("clear")
+        print("\n" * 24)
         print("Take care.")
 
 
@@ -257,17 +248,13 @@ def rules():
 
 
 def main():
-    os.system("clear")
-    os.system("clear")
-    print("Welcome to ***Battle Ships***\n")
+    print("Welcome to **Battle Ships**\n")
     # create instance of players.
-    player = Player(input("Please enter your name: \n"), "human")
-    computer = ArtificialPlayer(
-        input("Please name your opponent: \n"), "computer")
+    player = Player(input("Please enter your name: "), "human")
+    computer = ArtificialPlayer(input("Please name your opponent: "), "computer")
 
     if player.answer("\nWould you like to see the rules before you play?"):
-        os.system("clear")
-        os.system("clear")
+        print("\n" * 24)
         rules()
 
     # place ships on board.
