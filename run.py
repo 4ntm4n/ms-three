@@ -34,7 +34,7 @@ class BoardMaker:
                 f"{row_count}  " + " ".join(row),
             )
             row_count += 1
-        print("\n\n")
+        print("\n")
 
     def reveal_ships(self):
         """
