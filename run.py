@@ -62,14 +62,14 @@ class Player(BoardMaker):
         numbers = "12345"
         false_input = "''"
 
-        col = input("select a column [A-E]  ").lower()
+        col = input("select a column [A-E]: ").lower()
         while col not in letters or col in false_input:
-            print("\n...a coordinate IN. THE. SEA.(A-E)")
-            col = input("select a column [A-E]  ").lower()
+            print("\n...a column on the board would be preferable. [A-E]")
+            col = input("select a column [A-E]: ").lower()
 
         row = input("select a row [1-5]  ")
         while row not in numbers or row in false_input:
-            print("\ncomooon, you missed the ocean, 1-5 please :)")
+            print("\n the ships are hiding within row 1-5... try again.")
             row = input("select a row (1-5)  ")
 
         guess = (int(row) -1, letters.index(col))
@@ -145,14 +145,14 @@ def check_for_hit(player, opponent):
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
         os.system("clear")
-        return f"\nhit! one of {opponent.name}'s ship has sunk.\nOnly {len(opponent.ship_locations)} more ships to go for {player.name}"
+        return f"Hit! LOL @ {opponent.name}. Only {len(opponent.ship_locations)} more ships to go for {player.name}"
     else:
         if opponent.board[guess[0]][guess[1]] == "x":
             pass
         else:
             opponent.miss(guess)
             player.update_guesses(guess)
-            return f"\n{player.name} missed... so sad." 
+            return f"\n{player.name} missed..." 
 
 
 
@@ -212,10 +212,27 @@ def play(player1, player2):
                 player1.print_board()
                 player2.print_board()
         elif len(player2.ship_locations) == 0:
-            print("\nYou did it. congratulations.")
+            print(f"\nYou did it! you wiped the floor with {player2.name} Congratulations!")
+            if player.answer("Would you like to append your name to the glorious list of lucky winners?"):
+                feeling = input("cool, but first tell me how you feel right now.")
+
+                with open("lucky_folks.txt", "a") as luckers_file:
+                    luckers_file.write(f"{player1.name}, {feeling}")
+                
+                os.system("clear")
+                with open("lucky_folks.txt") as luckers_file:
+                    print(luckers_file.read())
+                break
+            else:
+                print("You do you.")    
             break
 
         turns += 1
+
+    if player.answer("Would you like a rematch?"):
+        play(player, computer)
+    else:
+        print("Take care.")
 
 
 def rules():
@@ -226,7 +243,7 @@ def rules():
         print(rules_file.read())
 
 
-print("Welcome to *Battle Ships")
+print("Welcome to **Battle Ships**")
 #create instance of players.
 player = Player(input("Please enter your name: "), "human")
 computer = ArtificialPlayer(input("Please name your opponent: "), "computer")
@@ -242,6 +259,7 @@ if player.answer("would you like to see the rules before you play?"):
 #visual representation of the ships
 player.reveal_ships()
 if player.name == "developer1337": # if you name your player this, the opponents ships will be revealed.
+    print("CH34T 4CTiV4T3D...")
     computer.reveal_ships()
 
 play(player, computer)
