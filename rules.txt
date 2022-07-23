@@ -19,4 +19,5 @@ left will be printed to the console, but you will not be able to append your
 name to the list of lucky people, and be forever an imortal part of this games 
 history, unless you sink all your opponents ships.. 
 
-The odds of winning is 50%, it is basically a very slow coinflip. Have... fun.
+The odds of winning are slim, it is basically a very slow coinflip
+where the coin lands on it's side most of the time. Have... fun.

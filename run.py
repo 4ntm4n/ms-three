@@ -264,7 +264,7 @@ def main():
     #visual representation of the ships
     player.reveal_ships()
     if player.name == "developer1337": # if you name your player this, the opponents ships will be revealed.
-        print("CH34T 4CTiV4T3D...")
+        print("\nCH34T 4CTiV4T3D...")
         computer.reveal_ships()
 
     play(player, computer)
