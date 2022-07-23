@@ -139,6 +139,7 @@ def check_for_hit(player, opponent):
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
         os.system("clear")
+        os.system("clear")
         if len(opponent.ship_locations) == 0:
             return f"Hit! That was {opponent.name}'s last ship. Haha! {opponent.name} is looser! "
         else:
@@ -149,6 +150,7 @@ def check_for_hit(player, opponent):
         else:
             opponent.miss(guess)
             player.update_guesses(guess)
+            os.system("clear")
             os.system("clear")
             return f"\n{player.name} missed..."
 
@@ -163,20 +165,22 @@ def play(player1, player2):
         f"\nHey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\n\nPress any key to reveal the boards.\n"
     )
     while turns <= 10:
-        os.system("clear")  # <-- make sure terminal is clear before each round
+        os.system("clear")  
+        os.system("clear")# <-- make sure terminal is clear before each round        
         print(f"{player2.name} playing round number {turns}")
         player1.print_board()
         player2.print_board()
 
         input(f"{player2.name} will start. Press any key when you are ready \n")
         os.system("clear")
-
+        os.system("clear")
         # player2 playing the round (computer)
         print(check_for_hit(player2, player1))
         player1.print_board()
         player2.print_board()
 
         input("You are up next. Press any key to make your guess \n")
+        os.system("clear")
         os.system("clear")
         print(f"{player1.name} playing round number {turns}")
         # player1 playing the round (human)
@@ -254,6 +258,7 @@ def rules():
 
 def main():
     os.system("clear")
+    os.system("clear")
     print("Welcome to **Battle Ships**\n")
     # create instance of players.
     player = Player(input("Please enter your name: \n"), "human")
@@ -261,6 +266,7 @@ def main():
         input("Please name your opponent: \n"), "computer")
 
     if player.answer("\nWould you like to see the rules before you play?"):
+        os.system("clear")
         os.system("clear")
         rules()
 
