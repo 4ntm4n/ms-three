@@ -67,10 +67,10 @@ class Player(BoardMaker):
             print("\n...a column on the board would be preferable. [A-E]")
             col = input("select a column [A-E]: ").lower()
 
-        row = input("select a row [1-5]  ")
+        row = input("select a row [1-5]: ")
         while row not in numbers or row in false_input:
             print("\n the ships are hiding within row 1-5... try again.")
-            row = input("select a row (1-5)  ")
+            row = input("select a row [1-5] ")
 
         guess = (int(row) -1, letters.index(col))
         return guess
@@ -212,9 +212,10 @@ def play(player1, player2):
                 player1.print_board()
                 player2.print_board()
         elif len(player2.ship_locations) == 0:
+            os.system("clear")
             print(f"\nYou did it! you wiped the floor with {player2.name} Congratulations!")
-            if player.answer("Would you like to append your name to the glorious list of lucky winners?"):
-                feeling = input("cool, but first tell me how you feel right now.")
+            if player1.answer("Would you like to append your name to the 'glorious' list of lucky winners?"):
+                feeling = input("Cool, but first; Tell me how you feel right now: ")
 
                 with open("lucky_folks.txt", "a") as luckers_file:
                     luckers_file.write(f"{player1.name}, {feeling}")
@@ -229,8 +230,9 @@ def play(player1, player2):
 
         turns += 1
 
-    if player.answer("Would you like a rematch?"):
-        play(player, computer)
+    os.system("clear")    
+    if player1.answer("Would you like a rematch?"):
+        play(player1, player2)
     else:
         print("Take care.")
 
@@ -243,23 +245,28 @@ def rules():
         print(rules_file.read())
 
 
-print("Welcome to **Battle Ships**")
-#create instance of players.
-player = Player(input("Please enter your name: "), "human")
-computer = ArtificialPlayer(input("Please name your opponent: "), "computer")
-
-#place ships on board.
-computer.place_ships()
-player.place_ships()
-
-
-if player.answer("would you like to see the rules before you play?"):
+def main():
     os.system("clear")
-    rules()
-#visual representation of the ships
-player.reveal_ships()
-if player.name == "developer1337": # if you name your player this, the opponents ships will be revealed.
-    print("CH34T 4CTiV4T3D...")
-    computer.reveal_ships()
+    print("Welcome to **Battle Ships**\n")
+    #create instance of players.
+    player = Player(input("Please enter your name: "), "human")
+    computer = ArtificialPlayer(input("Please name your opponent: "), "computer")
 
-play(player, computer)
+
+    if player.answer("\nWould you like to see the rules before you play?"):
+        os.system("clear")
+        rules()
+
+    #place ships on board.
+    computer.place_ships()
+    player.place_ships()  
+
+    #visual representation of the ships
+    player.reveal_ships()
+    if player.name == "developer1337": # if you name your player this, the opponents ships will be revealed.
+        print("CH34T 4CTiV4T3D...")
+        computer.reveal_ships()
+
+    play(player, computer)
+
+main()
