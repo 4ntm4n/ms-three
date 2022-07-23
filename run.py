@@ -70,7 +70,7 @@ class Player(BoardMaker):
         row = input("select a row [1-5]: ")
         while row not in numbers or row in false_input:
             print("\n the ships are hiding within row 1-5... try again.")
-            row = input("select a row [1-5] ")
+            row = input("select a row [1-5]: ")
 
         guess = (int(row) -1, letters.index(col))
         return guess
@@ -86,7 +86,7 @@ class Player(BoardMaker):
 
     def answer(self, question):
         """
-        a question is a Player method that 
+        answer is a Player method that 
         returns yes or no to a question asked to it.
         """
         if self.type == "human":
@@ -104,11 +104,10 @@ class Player(BoardMaker):
         else:
             print("I am not real, you cant ask me questions, I don't care...")
 
-class ArtificialPlayer(BoardMaker):
+class ArtificialPlayer(Player):
     """
-    Subclass of the BoardMaker that represents a artificial player.
-    Artificial player has access to the board, makes random guesses and stores
-    previous guesses.
+    Subclass of the Player that represents a artificial player.
+    ArtificialPlayer is a player that but with a random guess function.
     """
     def __init__(self, name, type):
         super().__init__(name, type)
@@ -117,24 +116,13 @@ class ArtificialPlayer(BoardMaker):
         guess = (randint(0,4), randint(0,4))
         return guess
 
-    def update_guesses(self, guess):     
-        self.guesses.append(guess)
-
-    def miss(self, guess):
-        self.board[guess[0]][guess[1]] = "0"
-
-    def hit(self, guess):
-        self.board[guess[0]][guess[1]] = "x"    
-
     
 
 def check_for_hit(player, opponent):
     """
     Function that evaluates a guess made from either player1 or player2.
     """
-    print(player.guesses)
     guess = player.guess()
-    print(guess)
     if guess in player.guesses:
         if player.type == "human":
             print("\nyou have already tried that")
@@ -145,13 +133,17 @@ def check_for_hit(player, opponent):
         player.update_guesses(guess)
         opponent.ship_locations.remove(guess)
         os.system("clear")
-        return f"Hit! LOL @ {opponent.name}. Only {len(opponent.ship_locations)} more ships to go for {player.name}"
+        if len(opponent.ship_locations) == 0:
+            return f"Hit! That was {opponent.name}'s last ship. Haha! {opponent.name} is looser! "
+        else:
+            return f"Hit! LOL @ {opponent.name}. Only {len(opponent.ship_locations)} more ships to go for {player.name}"
     else:
         if opponent.board[guess[0]][guess[1]] == "x":
             pass
         else:
             opponent.miss(guess)
             player.update_guesses(guess)
+            os.system("clear")
             return f"\n{player.name} missed..." 
 
 
@@ -163,7 +155,7 @@ def play(player1, player2):
     tween 2 players.
     """
     turns = 1
-    input(f"Hey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\nPress any key to reveal the boards.")
+    input(f"\nHey there {player1.name}, \nlet's play the worlds slowest coinflip against {player2.name}.\n\nPress any key to reveal the boards.")
     while turns <= 10:
         os.system("clear") #  <-- make sure terminal is clear before each round
         print(f"{player2.name} playing round number {turns}")
@@ -188,6 +180,7 @@ def play(player1, player2):
         print(check_for_hit(player1, player2))
         player1.print_board()
         player2.print_board()
+        input("press any key to play the next round")
 
         if len(player1.ship_locations) == 0:
             player2.reveal_ships() # add @ to the board based on ship location
@@ -213,14 +206,13 @@ def play(player1, player2):
                 player2.print_board()
         elif len(player2.ship_locations) == 0:
             os.system("clear")
-            print(f"\nYou did it! you wiped the floor with {player2.name} Congratulations!")
-            if player1.answer("Would you like to append your name to the 'glorious' list of lucky winners?"):
-                feeling = input("Cool, but first; Tell me how you feel right now: ")
+            print(f"\nYou did it! you wiped the floor with {player2.name}. Congratulations!")
+            if player1.answer("\nWould you like to forever append your name to list of lucky people?"):
+                feeling = input("\nCool, but first; Tell me how you feel right now: ")
 
                 with open("lucky_folks.txt", "a") as luckers_file:
-                    luckers_file.write(f"{player1.name}, {feeling}")
+                    luckers_file.write(f"\n{player1.name}, {feeling},")
                 
-                os.system("clear")
                 with open("lucky_folks.txt") as luckers_file:
                     print(luckers_file.read())
                 break
@@ -230,10 +222,11 @@ def play(player1, player2):
 
         turns += 1
 
-    os.system("clear")    
-    if player1.answer("Would you like a rematch?"):
+    if player1.answer("\nWould you like a rematch?"):
+        os.system("clear")
         play(player1, player2)
     else:
+        os.system("clear")
         print("Take care.")
 
 
