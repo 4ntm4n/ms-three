@@ -259,7 +259,7 @@ def rules():
 def main():
     os.system("clear")
     os.system("clear")
-    print("Welcome to **Battle Ships**\n")
+    print("Welcome to ***Battle Ships***\n")
     # create instance of players.
     player = Player(input("Please enter your name: \n"), "human")
     computer = ArtificialPlayer(
