@@ -192,14 +192,16 @@ def play(player1, player2):
         elif turns == 10:
             print("\n" * 24)
             if len(player1.ship_locations) > len(player2.ship_locations):
-                print(f"\nGAME OVER! \n {player2.name} sank the most ships")
+                print(f"\nGAME OVER! \n {player1.name} sank the most ships")
                 print(
                     f"{player2.name}'s board looked like this. better luck next time."
                 )
+                player2.reveal_ships() 
                 player2.print_board()
                 break
             elif len(player2.ship_locations) < len(player2.ship_locations):
-                print(f"\nGAME OVER! \n {player1.name} sank the most ships")
+                print(f"\nGAME OVER! \n {player2.name} sank the most ships")
+                player2.reveal_ships() 
                 print(
                     f"{player2.name}'s board looked like this. better luck next time."
                 )
@@ -207,6 +209,7 @@ def play(player1, player2):
                 break
             else:
                 input("you guys had equal amount of bad luck.")
+                player2.reveal_ships() 
                 player1.print_board()
                 player2.print_board()
         elif len(player2.ship_locations) == 0:
