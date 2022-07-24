@@ -159,12 +159,21 @@ class Player(BoardMaker):
         return guess
 
     def update_guesses(self, guess):
+        """
+        append guess to previus guesses memory
+        """
         self.guesses.append(guess)
 
     def miss(self, guess):
+        """
+        visually update a miss to the board
+        """
         self.board[guess[0]][guess[1]] = "0"
 
     def hit(self, guess):
+        """
+        visually update a hit to the board
+        """
         self.board[guess[0]][guess[1]] = "x"
 
     def answer(self, question):
@@ -180,13 +189,14 @@ class Player(BoardMaker):
                 elif check == "n":
                     return False
                 else:
-                    print("Invalid input")
+                    print("Answer 'Y' for Yes and 'N' for no")
                     return self.answer(question)
             except Exception:
-                print(f"enter 'y' for yes or 'n' for no. you entered {self.answer}")
+                print("Invalid response")
         else:
-            print("I am not real, you cant ask me questions, I don't care...")
-
+            print(
+                "I am not real, you cant ask me questions, I don't care..."
+                )
 ```
 <br>
 <br>
