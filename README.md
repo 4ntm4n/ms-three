@@ -329,6 +329,12 @@ This project was deployed using Code Institute's mock terminal using the followi
 
 ## Credit
 
+> #### **Code Institute**
+> Learned the python 3 essentials through Code Insitute.
+>
+> Mock Terminal used in this project is made by Code Insitute. 
+
+
 > #### **Codecademy**
 > I have studied python 3 at CodeCademy as an addition to the information on the topic provided by Code Institute.
 
@@ -346,6 +352,6 @@ I am not a big fan of the battle ship game but I am glad I chose it for my miles
 
 
 
-> Notes - a study in JavaScript
+> Battle Ships - a study in Python
 >
 > By Anton Askling 2022
