@@ -3,6 +3,12 @@
 
 ## Project outline
 This is a game of Battle Ships that is written in Python and executed in the command line.
+<br>
+<br>
+Try it out here:
+https://battle-ships-aa.herokuapp.com/
+<br>
+<br>
 
 - **Game Features:**
 
@@ -16,9 +22,10 @@ This is a game of Battle Ships that is written in Python and executed in the com
 
 
 ## Approach
-  ![image of flow chart](assets/img/readme/responsive.png)
+  ![image of flow chart](readme/flowchart.png)
   > This game is built fom the functionality and control flow outlined in this flow chart.
-  > you can for example see that if the user wants to see the rules before playing, an external txt-file is printed out to the terminal.
+  >
+  > You can for example see that if the user wants to see the rules before playing, an external txt-file is printed out to the terminal.
 
 <br>
 <br>
@@ -211,19 +218,75 @@ class ArtificialPlayer(Player):
 Here follows some pictures how the game looks and handles. 
 
 
-### **playboard:**
+### **View the rules:**
 
-> ![](assets/img/readme/large-screen-landing.png)
+>![rules](readme/rules.png)
 >
-> > This is what the viewer sees when visiting the website device with a large screen
-> > you can for example see that the "add" button is not yet visible. it will appear if the user scrolls down more than 200px
+> > Rules.txt is printed to the terminal if the player wants to see it.
+> >
+<br>  
 
+### **Playing boards:**
 
+>![board](readme/theboards.png)
+>
+> > This is what the board looks like.
+> >  On top is the players board, and at the bottom is the hidden guess board, where the opponent has his hidden ships.
+<br>
 
+### **Computer miss:**
+
+>![miss](readme/computermiss.png)
+>
+> > Computer missed a shot.
+> >  A "0" is 
+>appended to computers guessed coordinate C:1
+<br>
+
+### **Player hit:**
+
+>![hit](readme/hit.png)
+>
+> > A player hit an opponent ship.
+> >  An "X" is marking the sunken ship and a hit message is printed to the console. telling the player how many ships remains. 
+<br>
+
+### **Hitting last ship**
+
+>![hit last ship](readme/hitlast%20ship.png)
+>
+> > The last opponent ship was hit, this is the message you get.
+> >  
+<br>
+
+### **append name**
+
+>![append name to winners list](readme/luckypeople.png)
+>
+> > Only if you win the game you get the chance to append your username to the list of lucky people.
+> >  
+<br>
+
+### **No winner**
+
+>![10 rounds no winner](readme/tenrounds.png)
+>
+> > All 10 rounds went by, and no clear winner.. 
+> > The game will tell you who sank the most ships and reveal opponents ship locations before printing the board.
+> > In this case E:1 and B:5 held the ships.
+<br>
+
+### **Input handling**
+
+>![invalid input handling](readme/handlefalse.png)
+>
+> > Invalid input is handled through out the game.
+> >
+<br>
 
 ### **Validator Tests**
 
-To extend the validation of the HTML and CSS, external validators from w3c has been checking the code as well.
+Appart from testing the code I have used the python validator to validate my code.
 
 - HTML
 
@@ -238,90 +301,17 @@ To extend the validation of the HTML and CSS, external validators from w3c has b
 
 ### Unfixed Bugs
 
-> No bugs has been found in the testing of the application. tests has been made extensively throughout the coding of the app. if you find any errors, please let me know. anton.askling[a]gmail(.)com
----
-
-## **Testing User stories**
-
-> In this section we are testing the user stories stated in the outlined before this website was created in order to check if we have met all user needs.
+**There is a bug with Code Institute's nodeJS mock terminal**
+> When I wrote this code I imported "OS" and was running the os.system("clear") command in order to clear the terminal inbetween rounds. 
 >
-> > We are testing the user stories one by one. Click the list items to view its correlating solution.
+> But after uploading my code to heroku and using the nodeJS "mock terminal" I realised that the terminal only clears 15 lines due to some sort of limitation in the mock terminal. I even trued to implement two os.system("clear") statements after each other but with no different result.
+>
+>> My work-around solution for this bug is to create 24 new lines between each round (print("\n") -*24), since the terminal has a viewer of 24 rows.
 
-- **Typical users wants to have the ability:**
-
-  - <details>
-      <summary>
-        create new sticky notes.
-      </summary>
-      <img src="assets/img/readme/small-screen-landing.png">  
-    </details>
-
-  - <details>
-      <summary>
-        remove completed / irrelevant notes from the view.
-      </summary>  
-      <img src="assets/img/readme/remove-note.png">
-    </details>
-
-  - <details>
-      <summary>
-        sort notes by title name from A-Z or Z-A
-      </summary>
-      <img src="assets/img/readme/sorting-az.png">
-      <img src="assets/img/readme/sorting-za.png">  
-    </details>
-
-  - <details>
-      <summary>
-        make notes prioritized and have them showed up first in the list of notes.
-      </summary>
-      <img src="assets/img/readme/make-important.png">    
-    </details>
-
-  - <details>
-      <summary>
-        have a view for the prioritized notes only.
-      </summary>
-      <img src="assets/img/readme/starrred-notes.png">  
-    </details>
-
-  - <details>
-      <summary>
-        toggle between priority status on a note AFTER it has been created.
-      </summary>
-      <img src="assets/img/readme/star-existing.png">  
-    </details>
-
-
-  - <details>
-      <summary>
-        restore notes that has been removed.
-      </summary>
-      <img src="assets/img/readme/restore-note.png">  
-    </details>
-
-  - <details>
-      <summary>
-        delete notes permanently.
-      </summary>  
-      <img src="assets/img/readme/permanent-delete-note.png">
-    </details>
-
-  - <details>
-      <summary>
-        click a button that takes them to the note generator, instead of having to scroll up and down if many notes have been created.
-      </summary>
-      <img src="assets/img/readme/add-button.png"> 
-    </details>
-
-  - <details>
-      <summary>
-        view all the notes that have been removed
-      </summary>
-      <img src="assets/img/readme/removed-notes.png">  
-    </details>
 
 ---
+
+
 
 ## Deployment
 
@@ -332,71 +322,12 @@ To extend the validation of the HTML and CSS, external validators from w3c has b
 
 > You can visit the live website form any device by following this link:
 >
-> https://4ntm4n.github.io/ms-two/index.html
+> https://battle-ships-aa.herokuapp.com/
 
-## Credits
-
-In this section I want to give credits to resources I have used when creating this website.
-
-### **Technical**
+## Credit
 
 > #### **Codecademy**
->
-> On Codecademy.com I took a course in JavaScript called "Learn JavaScript", as well as one called "building interactive JavaScript websites". Prior writing this web application in javascript, codecademy let me try my abilities by working with small isolated projects on specific topics. This was a great way for me to get the ability to both understand and write this application fluently with very few moments where I had too look at external resources. 
->
-> > Here is a link to the tracks on codecademy:
-> > https://www.codecademy.com/learn/build-interactive-websites
-> > https://www.codecademy.com/learn/introduction-to-javascript
-
-
-> #### **tips and tricks**
->
-> Here I will are some things I picked up after googling and reading forums
->
-> **Concat arrays (used when a note was made prio):**
->
-> > https://www.w3schools.com/jsref/jsref_concat_array.asp#:~:text=The%20concat()%20method%20concatenates,not%20change%20the%20existing%20arrays
->
-> **prevent button malfunction when using icons inside buttons:**
->
-> > https://stackoverflow.com/questions/21653978/font-awesome-icon-preventing-click-in-parent-button
->
-> **scroll to the top of the page ('add' button)**
->
-> > https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
->
-> **How to sort objects in an array**
-> 
-> > https://www.youtube.com/watch?v=qy8TcQSGuoI&t=2s
->
-> **How to target a list item by clicking a button inside it**
-> > https://stackoverflow.com/questions/65321786/how-to-target-an-item-inside-a-list-element-by-class?fbclid=IwAR0GF2tT65JqtKLRhaWEcw6XcTXMsR6D4S9FZmv7d6aCXyb7cwS7awWkPsk
-> 
-> **inspiration for my filter functions**
-> > https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-
-### **Content**
->
-> - Fonts for text and heading has been imported through [Google Fonts](https://fonts.google.com/)
->   >
-> - All icons comes from [Font Awesome](https://fontawesome.com/)
->
-> **image in header**
->
-> > bought from Adobe stock photos and available on https://adobestock.com/
->
-> **image in footer**
->
-> > created myself, using imagination and adobe illustrator
-> 
-> **color scheme**
->
-> >https://www.schemecolor.com/city-by-night.php
-> 
-> 
->  **favicon**
->  favicons where generated using favicon.io
-> >http://favicon.io/
+> I have studied python 3 at CodeCademy as an addition to the information on the topic provided by Code Institute.
 
 ---
 
@@ -404,15 +335,12 @@ In this section I want to give credits to resources I have used when creating th
 
 Thank you for taking the time to read through this website documentation.
 
-This project is the second of five milestone projects in a full stack developer course that I have enrolled through [Code Institute](https://codeinstitute.net).
+This project is the third of five milestone projects in a full stack developer course that I have enrolled through [Code Institute](https://codeinstitute.net).
 
-- There are many ways to approach a project like this, but in this case I wanted to:
+I am not a big fan of the battle ship game but I am glad I chose it for my milestone project. There is so much events to handle even in a very small game like this and it was a great learning experience trying to figure out a personal way to tackle the challenges in building a terminal battle ships game.
 
-  - **A**: limit myself to **pure** html and CSS and JavaScript and not use any frameworks.
+-
 
-  - **B**: work from my own idea to create something unique and that way challange myself to take something from my mind into reality.
-
-The notes in this application has been viewed by me as placeholders for potentially different content on a more advanced website that I could build in the future. The ability for a user to create, sort and remove objects to give a more customized experience in a website is something that appeals to me. I think I have learned some very valuable lessons by building this application regardless of if _this_ application will be viewed as valuable or not. 
 
 
 > Notes - a study in JavaScript
