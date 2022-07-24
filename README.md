@@ -1,8 +1,8 @@
 # Battle Ships
-- An entertaining command line application. 
+![mock terminal on different screens](readme/bs_overview.png)
 
 ## Project outline
-This is a game of Battle Ships that is written in Python and executed in the command line.
+This is a game of Battle Ships that is written in Python and executed in the terminal.
 <br>
 <br>
 Try it out here:
@@ -34,7 +34,7 @@ https://battle-ships-aa.herokuapp.com/
 
 - a board
 - a player
-- an articial player
+- an artificial player
 
 The player has access to everything the board contains, I saw this as logical since a player of a physical game, has access to the board.
 So a player in this game is a subclass of the board, which inherits the attributes and methods that the board has. 
