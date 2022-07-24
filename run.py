@@ -269,9 +269,17 @@ def rules():
 def main():
     print("Welcome to **Battle Ships**\n")
     # create instance of players.
-    player = Player(input("Please enter your name: "), "human")
-    computer = ArtificialPlayer(input(
-        "Please name your opponent: "), "computer"
+
+    try:
+    player_name = input("Please enter your name: ")
+    opponent_name = input("Please name your opponent: ")
+    if not user_input:
+        raise ValueError('empty string')
+    except ValueError as e: 
+    print(e)
+
+    player = Player(player_name, "human")
+    computer = ArtificialPlayer(opponent_name, "computer"
         )
 
     if player.answer("\nWould you like to see the rules before you play?"):
