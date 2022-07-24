@@ -286,41 +286,34 @@ Here follows some pictures how the game looks and handles.
 
 ### **Validator Tests**
 
-Appart from testing the code I have used the python validator to validate my code.
+Apart from hours of playing battle ship, and from testing the code I have used the python validator PEP8. 
 
-- HTML
 
-  - No errors were returned when passing the index page through the official [W3C validator](https://validator.w3.org/nu/?doc=https%3A%2F%2F4ntm4n.github.io%2Fms-two%2Findex.html)
-
-- CSS
-
-  - No errors were found when passing the single CSS file through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2F4ntm4n.github.io%2Fms-two%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
-
-- JavaScript:
-  - _109 warnings_ for using ES 6 syntax, but *No errors* were found when testing the javaScript code through [JSHint](https://jshint.com/)
+- Python:
+  - Code Alright (run.py) [PEP8](http://pep8online.com/checkresult)
 
 ### Unfixed Bugs
 
-**There is a bug with Code Institute's nodeJS mock terminal**
-> When I wrote this code I imported "OS" and was running the os.system("clear") command in order to clear the terminal inbetween rounds. 
+**There is a bug within Code Institute's nodeJS mock terminal**
+> When I wrote this code I imported "OS" and was running the os.system("clear") command in order to clear the terminal in between game rounds. 
 >
-> But after uploading my code to heroku and using the nodeJS "mock terminal" I realised that the terminal only clears 15 lines due to some sort of limitation in the mock terminal. I even trued to implement two os.system("clear") statements after each other but with no different result.
+> But after uploading my code to heroku and using the nodeJS "mock terminal" I saw that the terminal only clears 15 lines due to some sort of limitation in the mock terminal. I even trued to implement two os.system("clear") statements after each other but with no different result.
 >
->> My work-around solution for this bug is to create 24 new lines between each round (print("\n") -*24), since the terminal has a viewer of 24 rows.
-
+>> My work-around solution for this bug is to create 24 new lines between each round (print("\n") -*24), since the terminal has an viewer output of 24 rows x 80 columns.
 
 ---
 
-
-
 ## Deployment
 
-- The site was deployed to GitHub pages using the following steps:
-  - In the GitHub repository, navigate to the Settings tab
-  - From the source section drop-down menu, select the Master Branch
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+This project was deployed using Code Institute's mock terminal using the following steps:
+ 
+  - Fork / clone this repository
+  - Create new heroku app
+  - set the Build Packs to Python and NoteJS
+  - Link heroku app to github repository
+  - Deploy
 
-> You can visit the live website form any device by following this link:
+> You can visit my live app by following this link:
 >
 > https://battle-ships-aa.herokuapp.com/
 
