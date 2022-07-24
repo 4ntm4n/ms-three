@@ -100,11 +100,10 @@ class Player(BoardMaker):
                 elif check == "n":
                     return False
                 else:
-                    print("Invalid input")
+                    print("Answer 'Y' for Yes and 'N' for no")
                     return self.answer(question)
             except Exception:
-                print(f"enter 'y' for yes or 'n' for no.",
-                      "you entered {self.answer}")
+                print("Invalid response")
         else:
             print(
                 "I am not real, you cant ask me questions, I don't care..."
@@ -164,9 +163,9 @@ def play(player1, player2):
     """
     turns = 1
     input(
-        f"\nHey there {player1.name}, \nlet's play the worlds",
-        f"slowest coinflip against {player2.name}.\n\nPress any",
-        "key to reveal the boards."
+        f"Hey there {player1.name}, let's play the worlds"
+        "slowest coinflip against {player2.name}."
+        "Press any key to reveal the boards."
     )
     while turns <= 10:
         # make sure terminal is clear before each round
@@ -197,7 +196,7 @@ def play(player1, player2):
 
         if len(player1.ship_locations) == 0:
             player2.reveal_ships()  # add @ to the board based on ship location
-            input(f"\nYou just lost against",
+            input("\nYou just lost against",
                   f"{player2.name}. Thanks for playing!")
             break
         elif turns == 10:
@@ -228,7 +227,7 @@ def play(player1, player2):
         elif len(player2.ship_locations) == 0:
             print("\n" * 24)
             print(
-                f"\nYou did it! you wiped the floor",
+                "\nYou did it! you wiped the floor",
                 f" with {player2.name}. Congratulations!"
             )
             if player1.answer(
@@ -270,17 +269,8 @@ def main():
     print("Welcome to **Battle Ships**\n")
     # create instance of players.
 
-    try:
-    player_name = input("Please enter your name: ")
-    opponent_name = input("Please name your opponent: ")
-    if not user_input:
-        raise ValueError('empty string')
-    except ValueError as e: 
-    print(e)
-
-    player = Player(player_name, "human")
-    computer = ArtificialPlayer(opponent_name, "computer"
-        )
+    player = Player(input("enter a name: "), "human")
+    computer = ArtificialPlayer("computer", "computer")
 
     if player.answer("\nWould you like to see the rules before you play?"):
         print("\n" * 24)
@@ -293,10 +283,10 @@ def main():
     # visual representation of the ships
     player.reveal_ships()
     # if you name your player this, the opponents ships will be revealed.
-    print("\nCH34T 4CTiV4T3D...")
     if player.name == "developer1337":
+        print("\nCH34T 4CTiV4T3D...")
         computer.reveal_ships()
-
+    player.answer("hello")
     play(player, computer)
 
 
