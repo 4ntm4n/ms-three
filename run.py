@@ -45,6 +45,15 @@ class BoardMaker:
         for ship in self.ship_locations:
             self.board[ship[0]][ship[1]] = "@"
 
+    def reset_board(self):
+        """
+        resets the board to empty state.
+        """
+        # reset guesses and locations and board 
+        self.board = [["."] * 5 for times in range(5)]
+        self.guesses = []
+        self.ship_location = []
+
 
 class Player(BoardMaker):
     """
@@ -79,12 +88,21 @@ class Player(BoardMaker):
         return guess
 
     def update_guesses(self, guess):
+        """
+        append guess to previus guesses memory
+        """
         self.guesses.append(guess)
 
     def miss(self, guess):
+        """
+        visually update a miss to the board
+        """
         self.board[guess[0]][guess[1]] = "0"
 
     def hit(self, guess):
+        """
+        visually update a hit to the board
+        """
         self.board[guess[0]][guess[1]] = "x"
 
     def answer(self, question):
@@ -166,10 +184,21 @@ def play(player1, player2):
     function that starts the game of battleship be
     tween 2 players.
     """
+    # place ships
+    player1.place_ships()
+    player2.place_ships()
+
+    # visual representation of the ships
+    player1.reveal_ships()
+    # if you name your player this, the opponents ships will be revealed.
+    if player1.name == "developer1337":
+        print("\nCH34T 4CTiV4T3D...")
+        player2.reveal_ships()
+
     turns = 1
     input(
         f"\nHey there {player1.name}, let's play the worlds "
-        f"slowest coinflip against {player2.name}. "
+        f"slowest coinflip against {player2.name}. \n"
         "Press any key to reveal the boards."
     )
     while turns <= 10:
@@ -260,6 +289,8 @@ def play(player1, player2):
 
     if player1.answer("\nWould you like a rematch?"):
         print("\n" * 24)
+        player1.reset_board()
+        player2.reset_board()
         play(player1, player2)
     else:
         print("\n" * 24)
@@ -293,17 +324,6 @@ def main():
     if player.answer("\nWould you like to see the rules before you play?"):
         print("\n" * 24)
         rules()
-
-    # place ships on board.
-    computer.place_ships()
-    player.place_ships()
-
-    # visual representation of the ships
-    player.reveal_ships()
-    # if you name your player this, the opponents ships will be revealed.
-    if player.name == "developer1337":
-        print("\nCH34T 4CTiV4T3D...")
-        computer.reveal_ships()
 
     play(player, computer)
 
