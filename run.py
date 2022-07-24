@@ -232,7 +232,7 @@ def play(player1, player2):
                 f" with {player2.name}. Congratulations!"
             )
             if player1.answer(
-                "\nWould you like to forever".
+                "\nWould you like to forever",
                 " append your name to list of lucky people?"
             ):
                 feeling = input("\nCool, but first;"
